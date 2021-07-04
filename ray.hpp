@@ -14,4 +14,5 @@ public:
 	vec3 direction() const;
 	point3 at(double) const;
 };
+
 #endif // RAY_H
