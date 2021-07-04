@@ -1,9 +1,8 @@
 #ifndef VEC3_H
 #define VEC3_H
 #pragma once
-#include <cmath>
 #include <iostream>
-using std::sqrt;
+#include "rtweekend.hpp"
 
 class vec3 {
 private:
@@ -23,12 +22,19 @@ public:
 	vec3& operator/=(const double);
 	double length() const;
 	double length_squared() const;
+	bool near_zero() const;
+	
 };
 
 using point3 = vec3; // 3D point
 using color = vec3; // RGB
 
 // Utility Functions
+
+auto random_in_unit_sphere()->vec3;
+auto random_unit_vector()->vec3;
+auto random_in_hemisphere(const vec3& normal)->vec3;
+vec3 reflect(const vec3& v, const vec3& n);
 
 inline std::ostream& operator<<(std::ostream& out, const vec3& v) {
 	return out << v.x() << ' ' << v.y() << ' ' << v.z();
@@ -73,4 +79,7 @@ inline vec3 unit_vector(vec3 v) {
 	return v / v.length();
 }
 
+inline vec3 rand_vec3(double min = 0, double max = 1) {
+	return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+}
 #endif // VEC3_H

@@ -10,10 +10,19 @@ PPM::~PPM() {
 void PPM::WriteLine(const std::string& other) {
 	file << other;
 }
-void PPM::WriteColor(color pixel) {
-	file << static_cast<int>(255.999 * pixel.x()) << ' '
-		<< static_cast<int>(255.999 * pixel.y()) << ' '
-		<< static_cast<int>(255.999 * pixel.z()) << '\n';
+void PPM::WriteColor(color pixel, int samples_per_pixel) {
+	auto r = pixel.x();
+	auto g = pixel.y();
+	auto b = pixel.z();
+
+	auto scale = 1.0 / samples_per_pixel;
+	r *= sqrt(scale);
+	g *= sqrt(scale);
+	b *= sqrt(scale);
+
+	file << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
+		<< static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
+		<< static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
 }
 
 auto PPM::Width() const -> int {

@@ -3,6 +3,7 @@
 #pragma once
 #include <fstream>
 #include <string>
+#include "rtweekend.hpp"
 #include "vec3.hpp"
 
 class PPM {
@@ -15,7 +16,7 @@ public:
 	PPM(const std::string&, int, int);
 	~PPM();
 	void WriteLine(const std::string& other);
-	void WriteColor(color pixel);
+	void WriteColor(color pixel, int samples);
 	auto Height() const -> int;
 	auto Width() const -> int;
 };
